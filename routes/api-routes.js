@@ -1,3 +1,6 @@
+
+// Here now we are putting our routes and models into use as we have set them up correctly and configured them. 
+
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
