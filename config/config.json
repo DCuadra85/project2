@@ -1,13 +1,8 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
     "password": "tdwp2140694",
     "database": "playlistApp_db",
-=======
-    "password": "password",
-    "database": "music_demo",
->>>>>>> b5186734b56ba0bba9db622871010b98d3a02b05
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
