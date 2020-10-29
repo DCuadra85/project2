@@ -11,9 +11,15 @@ module.exports = function(sequelize, DataTypes) {
     Songs.associate = function(models) {
       // Associating Author with Posts
       // When an Author is deleted, also delete any associated Posts
-      Songs.hasMany(models.Users, {
-        onDelete: "cascade"
+      Songs.belongsTo(models.Users, {
+        foreignKey: {
+          allowNull: false
+        }
       });
+
+      Songs.hasMany(models.Comments, {
+        onDelete: "cascade"
+      })
     };
   
     return Songs;
