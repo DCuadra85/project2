@@ -1,4 +1,43 @@
-form.signup,
-form.login {
-  margin-top: 50px;
+body {
+  font-family: 'Quicksand', serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+html {
+  overflow-y: hidden;
+  /* background-image: url("/media/MUSICIMAGE.jpg"); */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero {
+  background-image: url("../../media/MUSICIMAGE.jpg") !important;
+
+}
+
+.box {
+  margin-top: 5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+input {
+  font-weight: 300;
+}
+p {
+  font-weight: 700;
+}
+p.subtitle {
+  padding-top: 1rem;
+}
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #bababa;
 }
