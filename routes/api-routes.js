@@ -51,3 +51,41 @@ module.exports = function(app) {
   });
 };
 
+ //Get route for initial Songs retrieval
+ app.get("/api/user_songs", function (req, res) {
+    db.Songs.findAll({}).then(function (dbSongs) {
+        res.json(dbSongs);
+    });
+});
+//POST route for saving new Songs
+app.post("/api/user_songs", function (req, res) {
+    db.Songs.create({}).then(function (dbSongs) {
+        res.json(dbSongs);
+    });
+});
+//DELETE route from Songs list
+app.delete("/api/user_songs/:id", function (req, res) {
+    db.Songs.destroy({}).then(function (req, res) {
+        res.json(dbSongs);
+    });
+});
+app.get("/api/user_comments", function (req, res) {
+    db.Comments.findAll({}).then(function (req, res) {
+        res.json(dbComments);
+    });
+});
+app.post("/api/user_comments", function (req, res) {
+    db.Comments.create({}).then(function (req, res) {
+        res.json(dbComments);
+    });
+});
+app.delete("/api/user_comments", function (req, res) {
+    db.Comments.destroy({}).then(function (req, res) {
+        res.json(dbComments);
+    });
+});
+app.update("/api/user_comments", function (req, res) {
+    db.Comments.update({}).then(function (req, res) {
+        res.json(dbComments);
+    });
+});
