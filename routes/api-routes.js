@@ -1,6 +1,3 @@
-
-// Here now we are putting our routes and models into use as we have set them up correctly and configured them. 
-
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
@@ -50,65 +47,3 @@ module.exports = function(app) {
     }
   });
 };
-
- 
-
-
-
-
-
-
-
-
-
-// Get route to get all the songs made by the user. 
- app.get("/api/user_songs", function (req, res) {
-    db.Songs.findAll({
-        where: {
-            hostId: req.params.id
-        }
-    }).then(function (dbSongs) {
-        res.json(dbSongs);
-    });
-});
-
-// route used to get all songs and their host
-app.get("/api/event", (req, res) => {
-
-})
-
-//POST route for saving new Songs
-app.post("/api/user_songs", function (req, res) {
-    db.Songs.create({
-
-    }).then(function (dbSongs) {
-        res.json(dbSongs);
-    });
-});
-//DELETE route from Songs list
-app.delete("/api/user_songs/:id", function (req, res) {
-    db.Songs.destroy({}).then(function (req, res) {
-        res.json(dbSongs);
-    });
-});
-app.get("/api/user_comments", function (req, res) {
-    db.Comments.findAll({}).then(function (req, res) {
-        res.json(dbComments);
-    });
-});
-app.post("/api/user_comments", function (req, res) {
-    db.Comments.create({}).then(function (req, res) {
-        res.json(dbComments);
-    });
-});
-app.delete("/api/user_comments", function (req, res) {
-    db.Comments.destroy({}).then(function (req, res) {
-        res.json(dbComments);
-    });
-});
-app.update("/api/user_comments", function (req, res) {
-    db.Comments.update({}).then(function (req, res) {
-        res.json(dbComments);
-    });
-});
-
