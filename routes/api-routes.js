@@ -51,7 +51,17 @@ module.exports = function(app) {
   });
 };
 
- //Get route to get all the songs made by the user. 
+ 
+
+
+
+
+
+
+
+
+
+// Get route to get all the songs made by the user. 
  app.get("/api/user_songs", function (req, res) {
     db.Songs.findAll({
         where: {
@@ -64,7 +74,7 @@ module.exports = function(app) {
 
 // route used to get all songs and their host
 app.get("/api/event", (req, res) => {
-    
+
 })
 
 //POST route for saving new Songs
