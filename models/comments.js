@@ -4,21 +4,19 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-              len: [1]
+              len: [1, 30]
             }  
         },
         body: {
             type: DataTypes.TEXT,
             allowNull: false,
-            len: [1]  
+            len: [1, 200]  
         }
     });
     Comments.associate = function(models) {
-        Comments.belongsTo(models.Songs, {
-            foreignKey: {
-                allowNull: false
-              } 
-        })
+       models.Comments.belongsTo(models.Playlist, {
+            onDelete: "cascade"
+       })
     }
 return Comments;
 }

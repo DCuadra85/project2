@@ -51,15 +51,27 @@ module.exports = function(app) {
   });
 };
 
- //Get route for initial Songs retrieval
+ //Get route to get all the songs made by the user. 
  app.get("/api/user_songs", function (req, res) {
-    db.Songs.findAll({}).then(function (dbSongs) {
+    db.Songs.findAll({
+        where: {
+            hostId: req.params.id
+        }
+    }).then(function (dbSongs) {
         res.json(dbSongs);
     });
 });
+
+// route used to get all songs and their host
+app.get("/api/event", (req, res) => {
+    
+})
+
 //POST route for saving new Songs
 app.post("/api/user_songs", function (req, res) {
-    db.Songs.create({}).then(function (dbSongs) {
+    db.Songs.create({
+
+    }).then(function (dbSongs) {
         res.json(dbSongs);
     });
 });
@@ -89,3 +101,4 @@ app.update("/api/user_comments", function (req, res) {
         res.json(dbComments);
     });
 });
+
