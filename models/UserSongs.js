@@ -11,5 +11,5 @@ module.exports = function (sequelize, DataTypes) {
       models.UserSongs.belongsTo(models.Songs, { onDelete: "cascade" });
     }
   
-    return UserEvent;
+    return UserSongs;
   }

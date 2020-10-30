@@ -1,7 +1,7 @@
 // Requiring bcrypt for password hashing. Using the bcryptjs version as the regular bcrypt module sometimes causes errors on Windows machines
 var bcrypt = require("bcryptjs");
 // Creating our User model
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
     email: {
@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true,
+      },
     },
     // The password cannot be null
     password: {
@@ -20,7 +20,11 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = function (models) {
-    User.hasMany(models.Songs, {
+    models.User.hasMany(models.Songs, {
+      onDelete: "cascade",
+    });
+
+    models.User.hasMany(models.UserSongs, {
       onDelete: "cascade",
     });
   };
