@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
-    "database": "blogger",
+    "password": "tdwp2140694",
+    "database": "musicplaylist_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
@@ -14,10 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "g7ymqrhsmbzcc8mn",
-    "password": "sp46vtzycmls0vae",
-    "database": "v2m8n0b5g61muk0t",
-    "host": "127.0.0.1",
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
 }
