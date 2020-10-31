@@ -19,7 +19,7 @@ request({url:playlists_url, headers:{"Authorization":token}}, function (err, res
         })
 
     }
-})
+});
 
 // client_id	Required.
 

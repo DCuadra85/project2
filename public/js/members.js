@@ -5,7 +5,16 @@ $(document).ready(function() {
     $(".member-name").text(data.email);
   });
 
-  $.get("/api/spotify").then(function(data) {
-    console.log(data);
-  })
+  
+
+$(".testButton").on("click", function(event){
+  event.preventDefault();
+
+
+ window.location.href = "https://accounts.spotify.com/authorize?client_id=e4d66ae376534f54b84289b286defe4a&response_type=code&redirect_uri=https%3A%2F%2Fmusiccommenter.herokuapp.com%2Fmembers"
+
+})
+
 });
+
+

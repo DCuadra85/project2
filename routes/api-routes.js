@@ -52,38 +52,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get("/api/spotify", function (req, res) {
-    // axios
-    //   .get(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   })
-    //   .then(function (res) {
-    //     console.log(res);
-    //   });
-    // axios
-    //   .get(playlists_url, { headers: { Authorization: token } })
-    //   .then(function (res) {
-    //     if (res) {
-    //       console.log(res);
-    //       var playlists = JSON.parse(res.body);
-    //       var playlist_url = playlists.items[0].href;
-    //       request(
-    //         { url: playlist_url, headers: { Authorization: token } },
-    //         function (err, res) {
-    //           if (res) {
-    //             var playlist = JSON.parse(res.body);
-    //             console.log("playlist: " + playlist.name);
-    //             playlist.tracks.forEach(function (track) {
-    //               console.log(track.track.name);
-    //             });
-    //           }
-    //         }
-    //       );
-    //     }
-    //   });
-  });
+  
 };
 
 // Profile routes here.
