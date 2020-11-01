@@ -125,6 +125,7 @@ const APIController = (function () {
     const result = await fetch(`${trackEndPoint}`, {
       method: 'GET',
       headers: { 'Authorization': 'Bearer ' + token }
+
     });
 
     const data = await result.json();
@@ -248,7 +249,71 @@ const APPController = (function (UICtrl, APICtrl) {
     console.log(playlist)
   });
 
+
   DOMInputs.submit.addEventListener('click', async (e) => {
     e.preventDefault();
   })
 })();
+  
+
+  // handlePlaylistsubmit(e) {
+  //   e.preventDefault();
+  //   const likesNeeded = e.target.playlistLikesNeeded.value
+
+  //   let jsonData = {
+  //     name: e.target.playlistName.value,
+  //     public: false,
+  //     description: e.target.playlistDescription.value
+  //   };
+
+  //   axios({
+  //     method: 'POST',
+  //     url: `https://api.spotify.com/v1/users/${this.state.userReducer.SpotifyId}/playlists`,
+  //     data: jsonData,
+  //     dataType: 'json',
+  //     headers: {
+  //       'Authorization': 'Bearer ' + this.state.userReducer.accessToken,
+  //       'Content-Type': 'application/json'
+  //     }})
+  //     .then(res => {
+  //       const data = {
+  //         name: res.data.name,
+  //         externalUrl: res.data.external_urls.spotify,
+  //         playlistId: res.data.id,
+  //         userId: this.state.userReducer.id,
+  //         likesNeeded: likesNeeded
+  //       }
+  //       const postChatThunk = postChat(data)
+  //       store.dispatch(postChatThunk)
+  //     })
+  // };
+
+  // handleSongSubmit(e) {
+  //   e.preventDefault();
+  //   axios({
+  //     method: 'GET',
+  //     url: `https://api.spotify.com/v1/search?q=track:${e.target.songName.value}%20artist:${e.target.songArtist.value}&type=track`,
+  //     headers: {
+  //       'Authorization': 'Bearer' + this.state.userReducer.accessToken,
+  //     }
+  //   })
+  //   .then(res => {
+  //     const song = res.data.tracks.items[0];
+  //     console.log(song);
+  //     const postThunk = postSong(song, this.props.currentChat);
+  //     store.dispatch(postThunk)
+  //   })
+  // }
+// f3527b278f73ef84e8c2ebb6c9aede79db6f5b33
+
+
+
+// const e = require("express");
+// const { Store } = require("express-session");
+
+// $(document).ready(function() {
+//     // This file just does a GET request to figure out which user is logged in
+//     // and updates the HTML on the page
+//     $.get("/api/user_data").then(function(data) {
+//       $(".member-name").text(data.email);
+// f3527b278f73ef84e8c2ebb6c9aede79db6f5b33

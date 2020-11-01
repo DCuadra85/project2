@@ -1,13 +1,11 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
-var express = require("express");
-// Requiring our custom middleware for checking if a user is logged in
 
+// Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-    
-app.use(express.static("public"));
+
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
@@ -29,4 +27,5 @@ app.use(express.static("public"));
   app.get("/members", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
+
 };
