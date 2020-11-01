@@ -164,6 +164,17 @@ const UIController = (function () {
     divSonglist: '.song-list'
   }
 
+
+$(".testButton").on("click", function(event){
+  event.preventDefault();
+
+
+ window.location.href = "https://accounts.spotify.com/authorize?client_id=e4d66ae376534f54b84289b286defe4a&response_type=code&redirect_uri=https%3A%2F%2Fmusiccommenter.herokuapp.com%2Fmembers"
+
+})
+
+});
+
   return {
 
     inputField() {
@@ -304,9 +315,6 @@ const APPController = (function (UICtrl, APICtrl) {
   //     store.dispatch(postThunk)
   //   })
   // }
-// f3527b278f73ef84e8c2ebb6c9aede79db6f5b33
-
-
 
 // const e = require("express");
 // const { Store } = require("express-session");
@@ -316,4 +324,4 @@ const APPController = (function (UICtrl, APICtrl) {
 //     // and updates the HTML on the page
 //     $.get("/api/user_data").then(function(data) {
 //       $(".member-name").text(data.email);
-// f3527b278f73ef84e8c2ebb6c9aede79db6f5b33
+
