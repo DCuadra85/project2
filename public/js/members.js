@@ -6,19 +6,19 @@ $(document).ready(function () {
   });
 });
 
-var request = require('request');
+// var request = require('request');
 
-var options = {
-    url: 'https://musiccommenter.herokuapp.com/members'
-};
+// var options = {
+//     url: 'https://musiccommenter.herokuapp.com/members'
+// };
 
-function callback(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body);
-    }
-}
+// function callback(error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//         console.log(body);
+//     }
+// }
 
-request(options, callback);
+// request(options, callback);
 
 // const api = `your api here`
 // axios.get(api, { headers: { "Authorization": `Bearer ${token}` } })
