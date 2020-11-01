@@ -6,6 +6,19 @@ $(document).ready(function () {
   });
 });
 
+var request = require('request');
+
+var options = {
+    url: 'https://musiccommenter.herokuapp.com/members'
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
 
 // const api = `your api here`
 // axios.get(api, { headers: { "Authorization": `Bearer ${token}` } })
@@ -66,205 +79,205 @@ $(document).ready(function () {
 //   })
 // }
 
-const APIController = (function () {
-  const clientId = '';
-  const clientSecret = '';
+// const APIController = (function () {
+//   const clientId = '';
+//   const clientSecret = '';
 
-  const _getToken = async () => {
+//   const _getToken = async () => {
 
-    const result = await fetch('https://accounts.spotify.com/api/token', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/x-www-form-url',
-        'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-      },
-      body: 'great_type=client_credentials'
-    });
+//     const result = await fetch('https://accounts.spotify.com/api/token', {
+//       method: "POST",
+//       headers: {
+//         'Content-Type': 'application/x-www-form-url',
+//         'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+//       },
+//       body: 'great_type=client_credentials'
+//     });
 
-    const data = await result.json();
-    return data.access_token;
-  }
+//     const data = await result.json();
+//     return data.access_token;
+//   }
 
-  const _getGenres = async (token) => {
+//   const _getGenres = async (token) => {
 
-    const result = await fetch('https://api.spotify.com/vi/browse/categories?locale=sv_US', {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
+//     const result = await fetch('https://api.spotify.com/vi/browse/categories?locale=sv_US', {
+//       method: 'GET',
+//       headers: { 'Authorization': 'Bearer ' + token }
+//     });
 
-    const data = await result.json();
-    return data.categories.items;
-  }
+//     const data = await result.json();
+//     return data.categories.items;
+//   }
 
-  const _getPlaylistByGenre = async (token, genreId) => {
-    const limit = 10;
+//   const _getPlaylistByGenre = async (token, genreId) => {
+//     const limit = 10;
 
-    const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
+//     const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
+//       method: 'GET',
+//       headers: { 'Authorization': 'Bearer ' + token }
+//     });
 
-    const data = await result.json();
-    return data.playlists.itemsl
-  }
+//     const data = await result.json();
+//     return data.playlists.itemsl
+//   }
 
-  const _getTracks = async (token, tracksEndPoint) => {
+//   const _getTracks = async (token, tracksEndPoint) => {
 
-    const limit = 10;
-    const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
+//     const limit = 10;
+//     const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
+//       method: 'GET',
+//       headers: { 'Authorization': 'Bearer ' + token }
+//     });
 
-    const data = result.json();
-    return data.items;
-  }
+//     const data = result.json();
+//     return data.items;
+//   }
 
-  const _getTrack = async (token, trackEndPoint) => {
+//   const _getTrack = async (token, trackEndPoint) => {
 
-    const result = await fetch(`${trackEndPoint}`, {
-      method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + token }
+//     const result = await fetch(`${trackEndPoint}`, {
+//       method: 'GET',
+//       headers: { 'Authorization': 'Bearer ' + token }
 
-    });
+//     });
 
-    const data = await result.json();
-    return data;
-  }
+//     const data = await result.json();
+//     return data;
+//   }
 
-  return {
-    getToken() {
-      return _getToken();
-    },
-    getGenres(token) {
-      return _getGenres(token);
-    },
-    getPlaylistByGenre(token, genreId) {
-      return _getPlaylistByGenre(token, genreId);
-    },
-    getTracks(token, tracksEndPoint) {
-      return _getTracks(token, tracksEndPoint);
-    },
-    getTrack(token, trackEndPoint) {
-      return _getTrack(token, trackEndPoint);
-    }
-  }
-
-
-})();
-
-const UIController = (function () {
-
-  const DOMElements = {
-    selectGenre: '#select_genre',
-    selectPlaylist: '#select_playlist',
-    buttonSubmit: '#btn_submit',
-    divSongDetail: '#song-detail',
-    hfToken: '#hidden_token',
-    divSonglist: '.song-list'
-  }
+//   return {
+//     getToken() {
+//       return _getToken();
+//     },
+//     getGenres(token) {
+//       return _getGenres(token);
+//     },
+//     getPlaylistByGenre(token, genreId) {
+//       return _getPlaylistByGenre(token, genreId);
+//     },
+//     getTracks(token, tracksEndPoint) {
+//       return _getTracks(token, tracksEndPoint);
+//     },
+//     getTrack(token, trackEndPoint) {
+//       return _getTrack(token, trackEndPoint);
+//     }
+//   }
 
 
-$(".testButton").on("click", function(event){
-  event.preventDefault();
+// })();
+
+// const UIController = (function () {
+
+//   const DOMElements = {
+//     selectGenre: '#select_genre',
+//     selectPlaylist: '#select_playlist',
+//     buttonSubmit: '#btn_submit',
+//     divSongDetail: '#song-detail',
+//     hfToken: '#hidden_token',
+//     divSonglist: '.song-list'
+//   }
 
 
- window.location.href = "https://accounts.spotify.com/authorize?client_id=e4d66ae376534f54b84289b286defe4a&response_type=code&redirect_uri=https%3A%2F%2Fmusiccommenter.herokuapp.com%2Fmembers"
-
-})
-
-});
-
-  return {
-
-    inputField() {
-      return {
-        genre: document.querySelector(DOMElements.selectGenre),
-        playlist: document.querySelector(DOMElements.selectPlaylist),
-        songs: document.querySelector(DOMElements.divSonglist),
-        submit: document.querySelector(DOMElements.buttonSubmit),
-        songDetail: document.querySelector(DOMElements.divSongDetail)
-      }
-    },
-
-    createGenre(text, value) {
-      const html = `<option value="${value}">${text}</option>`;
-      document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
-
-    },
-
-    createPlaylist(text, value) {
-      const html = `<option value="${value}">${text}</option>`;
-      document.querySelector(DOMElements.selectPlaylist).insertAdjacentHTML('beforeend', html);
-    },
-
-    createTrack(id, name) {
-      const html = `<a href="#" class="list-group-item list-group-action list-group-item-light" id="${id}">${name}</a>`;
-      document.querySelector(DOMElements.divSonglist).insertAdjacentElement('beforeend', html);
-    },
-
-    createSongDetail(img, title, artist) {
-      const detailDiv = document.querySelector(DOMElements.divSongDetail);
-      detailDiv.innerHTML = '';
-
-      const html =
-        `
-        <div class="row col-sm-12 px-0>
-          <img src="${img}" alt="">
-          </div>
-        <div class="row col-sm-12 px-0>
-          <label for="Genre" class="form-label col-sm-12">${title}:</label>
-          </div>
-          <div class="row col-sm-12 px-0>
-            <label for="artist" class="form-label col-sm-12">By ${artist}:</label>
-            </div>
-        `;
-      detailDiv.insertAdjacentHTML('beforeend', html)
-    },
-
-    resetTrackDetail() {
-      this.inputField().songDetail.innerHTML = '';
-
-    },
-
-    resetTracks() {
-      this.inputField().songs.innerHTML = '';
-      this.resetTrackDetail();
-    },
-
-    resetPlaylist() {
-      this.inputField().playlist.innerHTML = '';
-      this.resetTracks();
-    }
-  }
-})();
-
-const APPController = (function (UICtrl, APICtrl) {
-
-  const DOMInputs = UICtrl.inputField();
-
-  constloadGenres = async () => {
-    const token = await APICtrl.getToken();
-    UICtrl.storeToken(token);
-    const genres = await APICtrl.getGenres(token);
-    genres.forEach(element => UICtrl.createGenre(element.name, element.id));
-  }
-
-  DOMInputs.genre.addEventListener('change', async () => {
-    UICtrl.resetPlaylist();
-
-    const token = UICtrl.getStoredToken().token;
-    const genreSelect = UICtrl.inputField().genre;
-    const genreId = genreSelect.options[genreSelect.selectedIndex].value;
-    const playlist = await APICtrl.getPlaylistByGenre(token, genreId);
-    console.log(playlist)
-  });
+// $(".testButton").on("click", function(event){
+//   event.preventDefault();
 
 
-  DOMInputs.submit.addEventListener('click', async (e) => {
-    e.preventDefault();
-  })
-})();
+//  window.location.href = "https://accounts.spotify.com/authorize?client_id=e4d66ae376534f54b84289b286defe4a&response_type=code&redirect_uri=https%3A%2F%2Fmusiccommenter.herokuapp.com%2Fmembers"
+
+// })
+
+// });
+
+//   return {
+
+//     inputField() {
+//       return {
+//         genre: document.querySelector(DOMElements.selectGenre),
+//         playlist: document.querySelector(DOMElements.selectPlaylist),
+//         songs: document.querySelector(DOMElements.divSonglist),
+//         submit: document.querySelector(DOMElements.buttonSubmit),
+//         songDetail: document.querySelector(DOMElements.divSongDetail)
+//       }
+//     },
+
+//     createGenre(text, value) {
+//       const html = `<option value="${value}">${text}</option>`;
+//       document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
+
+//     },
+
+//     createPlaylist(text, value) {
+//       const html = `<option value="${value}">${text}</option>`;
+//       document.querySelector(DOMElements.selectPlaylist).insertAdjacentHTML('beforeend', html);
+//     },
+
+//     createTrack(id, name) {
+//       const html = `<a href="#" class="list-group-item list-group-action list-group-item-light" id="${id}">${name}</a>`;
+//       document.querySelector(DOMElements.divSonglist).insertAdjacentElement('beforeend', html);
+//     },
+
+//     createSongDetail(img, title, artist) {
+//       const detailDiv = document.querySelector(DOMElements.divSongDetail);
+//       detailDiv.innerHTML = '';
+
+//       const html =
+//         `
+//         <div class="row col-sm-12 px-0>
+//           <img src="${img}" alt="">
+//           </div>
+//         <div class="row col-sm-12 px-0>
+//           <label for="Genre" class="form-label col-sm-12">${title}:</label>
+//           </div>
+//           <div class="row col-sm-12 px-0>
+//             <label for="artist" class="form-label col-sm-12">By ${artist}:</label>
+//             </div>
+//         `;
+//       detailDiv.insertAdjacentHTML('beforeend', html)
+//     },
+
+//     resetTrackDetail() {
+//       this.inputField().songDetail.innerHTML = '';
+
+//     },
+
+//     resetTracks() {
+//       this.inputField().songs.innerHTML = '';
+//       this.resetTrackDetail();
+//     },
+
+//     resetPlaylist() {
+//       this.inputField().playlist.innerHTML = '';
+//       this.resetTracks();
+//     }
+//   }
+// })();
+
+// const APPController = (function (UICtrl, APICtrl) {
+
+//   const DOMInputs = UICtrl.inputField();
+
+//   constloadGenres = async () => {
+//     const token = await APICtrl.getToken();
+//     UICtrl.storeToken(token);
+//     const genres = await APICtrl.getGenres(token);
+//     genres.forEach(element => UICtrl.createGenre(element.name, element.id));
+//   }
+
+//   DOMInputs.genre.addEventListener('change', async () => {
+//     UICtrl.resetPlaylist();
+
+//     const token = UICtrl.getStoredToken().token;
+//     const genreSelect = UICtrl.inputField().genre;
+//     const genreId = genreSelect.options[genreSelect.selectedIndex].value;
+//     const playlist = await APICtrl.getPlaylistByGenre(token, genreId);
+//     console.log(playlist)
+//   });
+
+
+//   DOMInputs.submit.addEventListener('click', async (e) => {
+//     e.preventDefault();
+//   })
+// })();
   
 
   // handlePlaylistsubmit(e) {
