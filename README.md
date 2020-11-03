@@ -96,7 +96,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Ivan Torres
 https://github.com/IvanTorresMia/
+https://www.linkedin.com/in/ivan-torres-0828931b2/
 
 Daniel Caudra
 
 https://github.com/DCuadra85
+https://www.linkedin.com/in/daniel-cuadra-3705aa39/
