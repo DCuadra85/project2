@@ -21,6 +21,9 @@ Deployment: https://theucbcookbook.herokuapp.com/
 * GitLab
 * GitHub
 
+![Working Product](./workingproduct.gif)
+
+
 ## Usage
 
 Have you ever wanted a digital cookbook that plays your own music playlist while you cook? Come and enjoy your own recipes and rhythms. We have created the app that will allow you to enjoy both! 
