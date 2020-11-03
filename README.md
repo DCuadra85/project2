@@ -21,6 +21,10 @@ Deployment: https://theucbcookbook.herokuapp.com/
 * GitLab
 * GitHub
 
+## Working Application
+Login: guest@guestmail.com
+Password: GUEST1234
+
 ![Working Product](./workingproduct.gif)
 
 
