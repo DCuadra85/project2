@@ -1,4 +1,67 @@
+
+
 form.signup,
 form.login {
   margin-top: 50px;
+}
+
+.hide {
+  display: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+background-image: url(./assets/newBack.jpg);
+background-size: cover ;
+}
+
+#navbarNav a {
+  color: gray;
+}
+
+#navbarNav a:hover {
+  color: black;
+}
+
+.bottom-line {
+  border-bottom: 2px solid #d6d0d0;
+}
+.addRecipe {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  margin-top: 100px;
+}
+
+#start-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.addBtn {
+margin-top: 20px;
+}
+
+#ingredient-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+#end-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.ingredientCon {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  margin-top: 100px;
+}
+
+.endCon {
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  margin-top: 100px;
 }

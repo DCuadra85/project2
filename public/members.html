@@ -1,72 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>The CookBook</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="stylesheets/style.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <title>Passport Authentication</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-  <link href="stylesheets/style.css" rel="stylesheet">
-</head>
+  <body>
+    <header class="mb-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light bottom-line">
+        <a class="navbar-brand my-header p-3 text-muted relative" href="/members">The CookBook</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/members"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutUs">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/viewAll">View all Recipes</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto pt-3">
+          <p class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
+          </p>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  
+  
 
-<body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/logout">
-          Logout
-        </a>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
-      </div>
-    </div>
-    <div class="row">
-      <button type="button" class="btn btn-secondary testButton">Secondary</button>
-      <div class="container" id="results">
-        
-      </div>
-    </div>
-
-  </div>
-
-  <div class="container">
-    <form action="">
-      <input type="hidden" id='hidden_token'>
-      <div class="col-sm-6 form-group row mt-4 px-0">
-        <label for="Genre" class="form-label col-sm-2">Genre:</label>
-        <select name="" id="select_genre" class="form-control form-control-sm col-sm-10">
-          <option>Select...</option>
-        </select>
-      </div>
-      <div class="col-sm-6 form-group row px-0">
-        <label for="Genre" class="form-label col-sm-2">Playlists:</label>
-        <select name="" id="select_playlist" class="form-control form-control-sm col-sm-10">
-          <option>Select...</option>
-        </select>
-      </div>
-      <div class="col-sm-6 row form-group px-0">
-        <button type="submit" id="btn_submit" class="btn btn-success col-sm-12">Search</button>
-      </div>
-    </form>
-    <div class="row">
-      <div class="col-sm-6 px-0">
-        <div class="list-group song-list">
-
+    <div class="container addRecipe" data-aos="fade-up">
+      <!-- start button -->
+      <div class="row d-flex justify-content-center">
+      <div class="card text-center border border-secondary" style="width: 450px;" id="start-container">
+        <div class="card-body">
+          <h5 class="card-title">What are we making today?</h5>
+          <input type="text" class="recipe-input">
+          <br>
+          <button class="btn btn-secondary addBtn" id="add">Add A recipe</button>
         </div>
       </div>
-      <div class="offset-md-1 col-sm-4" id="song-detail">
+    </div>
+      <!-- ingredient container -->
+      <div class="container ingredientCon" data-aos="fade-down" style="width: 450px;">
+      <div class=" hide card text-center border border-secondary" id="ingredient-container">
+        <div class="card-body">
+          <h5 class="card-title">
+            Add an ingredient and instruction, type "done" when finished.
+          </h5>
+          <input type="text" class="ingredient-input">
+            <br>
+            <label for="instruction">Instructions</label>
+            <textarea class="form-control" id="add-instruction" rows="3"></textarea>
+          <button class="btn btn-secondary mt-2" id="add-ingredient">Add A ingredient</button>
+          <button class="btn btn-secondary mt-2" id="done-button">Done</button>
+        </div>
+      </div>
+    </div>
+      <!-- final container -->
+      <div class="container endCon" data-aos="fade-up" style="width: 450px;">
+      <div
+      class="hide card text-center border border-secondary endCon"
+      id="end-container"
+      
+    >
+      <div class="card-body">
+        <h5 class="card-title">All Done!</h5>
+        <p class="card-text">What do you want to do now?</p>
+        <button class="btn btn-secondary" id="add-another">Add nother recipe</button>
+        <a href="/viewAll">
+        <button class="btn btn-secondary" id="view-all">View all recipes</button>
+      </a>
+        </div>
       </div>
     </div>
   </div>
+  
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/members.js"></script>
-
-</body>
-
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/members.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
 </html>
+
+<!-- <a class="navbar-brand" href="/logout">
+  Logout
+</a> -->

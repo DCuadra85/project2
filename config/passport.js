@@ -34,36 +34,6 @@ passport.use(new LocalStrategy(
   }
 ));
 
-passport.use(new SpotifyStrategy({
-  clientID: e4d66ae376534f54b84289b286defe4a,
-  clientSecret: e4aa05c299e24c17927ebf9dcaf60bee,
-  callbackURL: 'https://musiccommenter.herokuapp.com/members'
-},
-function(accessToken, refreshToken, profile, done) {
-  process.nextTick(function () {
-    console.log('profile: ', profile)
-
-    User.findOrCreate({
-      where: {
-        SpotifyId: profile.id
-      },
-      defaults: {
-        name: profile.displayName,
-        SpotifyId: profile.id,
-        accessToken: accessToken,
-        proPic: profile.photos[0],
-        refreshToken: refreshToken
-      }
-    })
-    /ScopedCredential(function (user) {
-      console.log('Making User: ', user);
-      done(null, user);
-    })
-    .catch(done);
-  })
-}
-))
-
 // In order to help keep authentication state across HTTP requests,
 // Sequelize needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work

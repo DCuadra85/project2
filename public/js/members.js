@@ -1,340 +1,143 @@
+/*
+Ivan's notes: 
+I made inputs and buttons and stored the hooks in variables. 
+What this does thus far, is just console.log values just to make sure that we are getting values
+Then I made a class in our stylesheet of 'hide' that allows containers to hide or show when a button is clicked 
+i.e when you click the startButton, then the start container will hide and show the next container up. 
+
+Here is were our ajax call magic will happen
+*/
+
 $(document).ready(function () {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
+
+  var startButton = $("#add");
+  var ingredientButton = $("#add-ingredient");
+  var viewAllButton = $("#view-all");
+  var doneButton = $("#done-button");
+  var ingredientContainer = $("#ingredient-container");
+  var startContainer = $("#start-container");
+  var endContainer = $("#end-container");
+  var recipeName = $(".recipe-input");
+  var ingredientInput = $(".ingredient-input");
+  var instructionInput = $("#add-instruction");
+  var addAnother = $("#add-another");
+  var vewAllButton = $("#view-all");
+
   $.get("/api/user_data").then(function (data) {
     $(".member-name").text(data.email);
   });
-});
 
-// var request = require('request');
+  $(startButton).on("click", function (event) {
+    event.preventDefault();
+    console.log(recipeName.val());
 
-// var options = {
-//     url: 'https://musiccommenter.herokuapp.com/members'
-// };
+    ingredientContainer.attr("class", "none card text-center border border-secondary ingredientCon");
+    endContainer.attr("class", "hide card text-center border border-secondary endCon");
+    startContainer.attr("class", "hide card text-center border border-secondary");
 
-// function callback(error, response, body) {
-//     if (!error && response.statusCode == 200) {
-//         console.log(body);
-//     }
-// }
+    //  Making a call to post.
+    $.get("/api/user_data").then(function (data) {
+      console.log(data.id);
+      // This is to get user Id and pass it to the UserId foreign Key
+      var userId = data.id;
+      $.post("/api/recipe", { title: recipeName.val(), id: userId });
+    });
+  });
 
-// request(options, callback);
+  $(ingredientButton).on("click", function (event) {
+    event.preventDefault();
+    console.log(ingredientInput.val());
+    console.log(instructionInput.val());
+    // Making a call to post
+    $.get("/api/recipe", function (data) {
+      var recipeId = data.length;
 
-// const api = `your api here`
-// axios.get(api, { headers: { "Authorization": `Bearer ${token}` } })
-//   .then(res => {
-//     console.log(res.data);
-//     this.setState({
-//       items: res.data,  /*set response data in items array*/
-//       isLoaded: true,
-//       redirectToReferrer: false
-//     })
+      console.log(data.length);
 
-// handlePlaylistsubmit(e) {
-//   e.preventDefault();
-//   const likesNeeded = e.target.playlistLikesNeeded.value
+      $.post("/api/ingredients", {
+        title: ingredientInput.val(),
+        body: instructionInput.val(),
+        id: recipeId,
+      });
+    });
+  });
 
-//   let jsonData = {
-//     name: e.target.playlistName.value,
-//     public: false,
-//     description: e.target.playlistDescription.value
-//   };
+  $(doneButton).on("click", function (event) {
+    event.preventDefault();
+    ingredientContainer.attr("class", "hide card text-center border border-secondary ingredientCon");
+    endContainer.attr("class", "none card text-center border border-secondary");
+    startContainer.attr("class", "hide card text-center border border-secondary");
+  });
 
-//   axios({
-//     method: 'POST',
-//     url: `https://api.spotify.com/v1/users/${this.state.userReducer.SpotifyId}/playlists`,
-//     data: jsonData,
-//     dataType: 'json',
-//     headers: {
-//       'Authorization': 'Bearer ' + this.state.userReducer.accessToken,
-//       'Content-Type': 'application/json'
-//     }})
-//     .then(res => {
-//       const data = {
-//         name: res.data.name,
-//         externalUrl: res.data.external_urls.spotify,
-//         playlistId: res.data.id,
-//         userId: this.state.userReducer.id,
-//         likesNeeded: likesNeeded
-//       }
-//       const postChatThunk = postChat(data)
-//       store.dispatch(postChatThunk)
-//     })
-// };
+  $(addAnother).on("click", function (event) {
+    event.preventDefault();
 
-// handleSongSubmit(e) {
-//   e.preventDefault();
-//   axios({
-//     method: 'GET',
-//     url: `https://api.spotify.com/v1/search?q=track:${e.target.songName.value}%20artist:${e.target.songArtist.value}&type=track`,
-//     headers: {
-//       'Authorization': 'Bearer' + this.state.userReducer.accessToken,
-//     }
-//   })
-//   .then(res => {
-//     const song = res.data.tracks.items[0];
-//     console.log(song);
-//     const postThunk = postSong(song, this.props.currentChat);
-//     store.dispatch(postThunk)
-//   })
-// }
+    ingredientContainer.attr("class", "hide card text-center border border-secondary ingredientCon");
+    endContainer.attr("class", "none card text-center border border-secondary endCon");
+    startContainer.attr("class", "hide card text-center border border-secondary");
+  });
 
-// const APIController = (function () {
-//   const clientId = '';
-//   const clientSecret = '';
+  // viewAll Code Starts here
 
-//   const _getToken = async () => {
+  function appendButtons() {
+    var allRecipes = $("#all-recipes");
+    var currentRecipes = $("#current-recipe");
 
-//     const result = await fetch('https://accounts.spotify.com/api/token', {
-//       method: "POST",
-//       headers: {
-//         'Content-Type': 'application/x-www-form-url',
-//         'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
-//       },
-//       body: 'great_type=client_credentials'
-//     });
+    $.get("/api/recipe", function (data) {
+      // testing data
+      console.log(data);
+      console.log(JSON.stringify(data[0].title));
+      console.log(data[2].id);
 
-//     const data = await result.json();
-//     return data.access_token;
-//   }
+      for (i = 0; i < data.length; i++) {
+        var recipeCard = `
+<div>
+        <h5>${data[i].title}</h5>
+        <button class="btn btn-secondary currentR" id=${data[i].id}>View Recipe</button>
+</div>
 
-//   const _getGenres = async (token) => {
+`;
 
-//     const result = await fetch('https://api.spotify.com/vi/browse/categories?locale=sv_US', {
-//       method: 'GET',
-//       headers: { 'Authorization': 'Bearer ' + token }
-//     });
+        allRecipes.append(recipeCard);
+      }
 
-//     const data = await result.json();
-//     return data.categories.items;
-//   }
+    });
+  }
 
-//   const _getPlaylistByGenre = async (token, genreId) => {
-//     const limit = 10;
+  appendButtons();
 
-//     const result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
-//       method: 'GET',
-//       headers: { 'Authorization': 'Bearer ' + token }
-//     });
+$(document).on("click", ".currentR", function(event){
+event.preventDefault()
+$("#current-recipe").empty();
+var currentId = this.id;
+console.log(this.id);
 
-//     const data = await result.json();
-//     return data.playlists.itemsl
-//   }
+$.get("/api/recipe/" + currentId, function(data){
+console.log(data)
 
-//   const _getTracks = async (token, tracksEndPoint) => {
+var allIngredients = "";
 
-//     const limit = 10;
-//     const result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
-//       method: 'GET',
-//       headers: { 'Authorization': 'Bearer ' + token }
-//     });
-
-//     const data = result.json();
-//     return data.items;
-//   }
-
-//   const _getTrack = async (token, trackEndPoint) => {
-
-//     const result = await fetch(`${trackEndPoint}`, {
-//       method: 'GET',
-//       headers: { 'Authorization': 'Bearer ' + token }
-
-//     });
-
-//     const data = await result.json();
-//     return data;
-//   }
-
-//   return {
-//     getToken() {
-//       return _getToken();
-//     },
-//     getGenres(token) {
-//       return _getGenres(token);
-//     },
-//     getPlaylistByGenre(token, genreId) {
-//       return _getPlaylistByGenre(token, genreId);
-//     },
-//     getTracks(token, tracksEndPoint) {
-//       return _getTracks(token, tracksEndPoint);
-//     },
-//     getTrack(token, trackEndPoint) {
-//       return _getTrack(token, trackEndPoint);
-//     }
-//   }
-
-
-// })();
-
-// const UIController = (function () {
-
-//   const DOMElements = {
-//     selectGenre: '#select_genre',
-//     selectPlaylist: '#select_playlist',
-//     buttonSubmit: '#btn_submit',
-//     divSongDetail: '#song-detail',
-//     hfToken: '#hidden_token',
-//     divSonglist: '.song-list'
-//   }
-
-
-// $(".testButton").on("click", function(event){
-//   event.preventDefault();
-
-
-//  window.location.href = "https://accounts.spotify.com/authorize?client_id=e4d66ae376534f54b84289b286defe4a&response_type=code&redirect_uri=https%3A%2F%2Fmusiccommenter.herokuapp.com%2Fmembers"
-
-// })
-
-// });
-
-//   return {
-
-//     inputField() {
-//       return {
-//         genre: document.querySelector(DOMElements.selectGenre),
-//         playlist: document.querySelector(DOMElements.selectPlaylist),
-//         songs: document.querySelector(DOMElements.divSonglist),
-//         submit: document.querySelector(DOMElements.buttonSubmit),
-//         songDetail: document.querySelector(DOMElements.divSongDetail)
-//       }
-//     },
-
-//     createGenre(text, value) {
-//       const html = `<option value="${value}">${text}</option>`;
-//       document.querySelector(DOMElements.selectGenre).insertAdjacentHTML('beforeend', html);
-
-//     },
-
-//     createPlaylist(text, value) {
-//       const html = `<option value="${value}">${text}</option>`;
-//       document.querySelector(DOMElements.selectPlaylist).insertAdjacentHTML('beforeend', html);
-//     },
-
-//     createTrack(id, name) {
-//       const html = `<a href="#" class="list-group-item list-group-action list-group-item-light" id="${id}">${name}</a>`;
-//       document.querySelector(DOMElements.divSonglist).insertAdjacentElement('beforeend', html);
-//     },
-
-//     createSongDetail(img, title, artist) {
-//       const detailDiv = document.querySelector(DOMElements.divSongDetail);
-//       detailDiv.innerHTML = '';
-
-//       const html =
-//         `
-//         <div class="row col-sm-12 px-0>
-//           <img src="${img}" alt="">
-//           </div>
-//         <div class="row col-sm-12 px-0>
-//           <label for="Genre" class="form-label col-sm-12">${title}:</label>
-//           </div>
-//           <div class="row col-sm-12 px-0>
-//             <label for="artist" class="form-label col-sm-12">By ${artist}:</label>
-//             </div>
-//         `;
-//       detailDiv.insertAdjacentHTML('beforeend', html)
-//     },
-
-//     resetTrackDetail() {
-//       this.inputField().songDetail.innerHTML = '';
-
-//     },
-
-//     resetTracks() {
-//       this.inputField().songs.innerHTML = '';
-//       this.resetTrackDetail();
-//     },
-
-//     resetPlaylist() {
-//       this.inputField().playlist.innerHTML = '';
-//       this.resetTracks();
-//     }
-//   }
-// })();
-
-// const APPController = (function (UICtrl, APICtrl) {
-
-//   const DOMInputs = UICtrl.inputField();
-
-//   constloadGenres = async () => {
-//     const token = await APICtrl.getToken();
-//     UICtrl.storeToken(token);
-//     const genres = await APICtrl.getGenres(token);
-//     genres.forEach(element => UICtrl.createGenre(element.name, element.id));
-//   }
-
-//   DOMInputs.genre.addEventListener('change', async () => {
-//     UICtrl.resetPlaylist();
-
-//     const token = UICtrl.getStoredToken().token;
-//     const genreSelect = UICtrl.inputField().genre;
-//     const genreId = genreSelect.options[genreSelect.selectedIndex].value;
-//     const playlist = await APICtrl.getPlaylistByGenre(token, genreId);
-//     console.log(playlist)
-//   });
-
-
-//   DOMInputs.submit.addEventListener('click', async (e) => {
-//     e.preventDefault();
-//   })
-// })();
+for (i=0; i< data.Ingredients.length; i++){
+  allIngredients += "<p><strong>Ingredient: </strong>" + data.Ingredients[i].title + "</p>" + "<p>Instruction: " + data.Ingredients[i].body + "</p>"
   
+}
 
-  // handlePlaylistsubmit(e) {
-  //   e.preventDefault();
-  //   const likesNeeded = e.target.playlistLikesNeeded.value
+var fullrecipe = 
+`
+<h3>${data.title}</h3>
+<div>${allIngredients}</div>
 
-  //   let jsonData = {
-  //     name: e.target.playlistName.value,
-  //     public: false,
-  //     description: e.target.playlistDescription.value
-  //   };
+`;
 
-  //   axios({
-  //     method: 'POST',
-  //     url: `https://api.spotify.com/v1/users/${this.state.userReducer.SpotifyId}/playlists`,
-  //     data: jsonData,
-  //     dataType: 'json',
-  //     headers: {
-  //       'Authorization': 'Bearer ' + this.state.userReducer.accessToken,
-  //       'Content-Type': 'application/json'
-  //     }})
-  //     .then(res => {
-  //       const data = {
-  //         name: res.data.name,
-  //         externalUrl: res.data.external_urls.spotify,
-  //         playlistId: res.data.id,
-  //         userId: this.state.userReducer.id,
-  //         likesNeeded: likesNeeded
-  //       }
-  //       const postChatThunk = postChat(data)
-  //       store.dispatch(postChatThunk)
-  //     })
-  // };
+$("#current-recipe").append(fullrecipe);
+})
 
-  // handleSongSubmit(e) {
-  //   e.preventDefault();
-  //   axios({
-  //     method: 'GET',
-  //     url: `https://api.spotify.com/v1/search?q=track:${e.target.songName.value}%20artist:${e.target.songArtist.value}&type=track`,
-  //     headers: {
-  //       'Authorization': 'Bearer' + this.state.userReducer.accessToken,
-  //     }
-  //   })
-  //   .then(res => {
-  //     const song = res.data.tracks.items[0];
-  //     console.log(song);
-  //     const postThunk = postSong(song, this.props.currentChat);
-  //     store.dispatch(postThunk)
-  //   })
-  // }
 
-// const e = require("express");
-// const { Store } = require("express-session");
 
-// $(document).ready(function() {
-//     // This file just does a GET request to figure out which user is logged in
-//     // and updates the HTML on the page
-//     $.get("/api/user_data").then(function(data) {
-//       $(".member-name").text(data.email);
 
+})
+
+ 
+});
